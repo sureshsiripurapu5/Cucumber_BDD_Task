@@ -5,6 +5,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.testng.Assert;
 import pages.CartPage;
 import pages.HomePage;
 import pages.ProductsPage;
@@ -35,10 +36,10 @@ public class RiverIslandSteps extends WebDriverFactory {
 
     @Then("the user verifies the product name and product title")
     public void theUserVerifiesTheProductNameAndProductTitle() {
-       String v1= productsPage.getProductText();
-        System.out.println(v1);
-        String v2=productsPage.getProductPrice();
-        System.out.println(v2);
+       String productTitle= productsPage.getProductText();
+        System.out.println(productTitle);
+        String productPrice=productsPage.getProductPrice();
+        System.out.println(productPrice);
     }
 
     @When("the user selects the product size")
@@ -58,15 +59,18 @@ public class RiverIslandSteps extends WebDriverFactory {
     @Then("the user verifies the product name and price in the bag")
     public void theUserVerifiesTheProductNameAndPriceInTheBag() {
         productsPage.addProductToBag();
-        String v3=productsPage.getBagProductTitle();
-        String v4=productsPage.getBagProductPrice();
-        System.out.println(v3);
-        System.out.println(v4);
+        String bagProducttitle=productsPage.getBagProductTitle();
+        String bagProductPrice=productsPage.getBagProductPrice();
+        System.out.println(bagProducttitle);
+        System.out.println(bagProductPrice);
         cartPage=new CartPage(driver);
         String cartProductTitle=cartPage.getCartProductTitle();
         String cartProductPrice=cartPage.getCartProductPrice();
         System.out.println(cartProductTitle);
         System.out.println(cartProductPrice);
+
+        Assert.assertEquals(bagProducttitle,cartProductTitle);
+        Assert.assertEquals(bagProductPrice,cartProductPrice);
 
 
 
